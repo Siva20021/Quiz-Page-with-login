@@ -4,9 +4,178 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Welcome!</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        *{
+            padding: none;
+            border: 0px;
+            background-color: black;
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>Login to access the website</h1>
+    <center><h1 style="color: blue;">SSHSRN's Fictional Restaurant</h1>
+    <h2 style="color: yellow;">Welcome to the fictional restaurant where you can eat imaginary foods and stay in imaginary rooms!</h2>
+    <h3>But guess what?<br>Even for a fictional restaurant, you should create an account.</h3>
+
+    <!-- Login div -->
+    <div class="pt-5 loginDiv" id="loginDiv" style="display: none;">  
+        <div class="container">  
+            <div class="row">  
+                <div class="col-md-5 mx-auto">  
+                    <div style="border: 1px dashed white; padding: 20px;">  
+                        <h2>Login!</h2>
+                        <div class="required">  
+                            <label class="d-flex flex-row align-items-center" for="username"> Enter your Email </label>  
+                            <input type="text" class="form-control text-lowercase" id="l-email">  
+                        </div>                      
+                        <div class="required">  
+                            <label class="d-flex flex-row align-items-center" for="password"> Enter your Password </label>  
+                            <input type="password" class="form-control" required="" id="l-password">  
+                        </div>   
+                        <div class="pt-1">  
+                            <button class="btn btn-primary btn-block" id="login" type="submit"> Log In </button>  
+                        </div>  
+                        <p class="small-xl pt-3 text-center">  
+                        <span class="text-muted"> Not a member? </span>  
+                        <a style="cursor: pointer;" onclick="toggleSignupLogin()"> Sign up </a></p>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+
+    <!-- SignUp div -->
+    <div class="pt-5 signUpDiv" id="signUpDiv">  
+        <div class="container">  
+            <div class="row">  
+                <div class="col-md-5 mx-auto">  
+                    <div style="border: 1px dashed white; padding: 20px;">  
+                        <h2>Sign up!</h2>
+                        <div class="required">  
+                            <label class="d-flex flex-row align-items-center" for="username"> Enter your Email </label>  
+                            <input type="text" class="form-control text-lowercase" id="s-email" required="" name="username">  
+                        </div>                      
+                        <div class="required">  
+                            <label class="d-flex flex-row align-items-center" for="password"> Set a Password </label>  
+                            <input type="password" class="form-control" required="" id="s-password" name="password">  
+                        </div>
+                        <!-- <div class="required">  
+                            <label class="d-flex flex-row align-items-center" for="password"> Confirm Password </label>  
+                            <input type="password" class="form-control" required="" id="password" name="password" value="">  
+                        </div>    -->
+                        <div class="pt-1">  
+                            <button class="btn btn-primary btn-block" id="signUp" type="submit"> Sign Up </button>  
+                        </div>  
+                        <p class="small-xl pt-3 text-center">  
+                        <span class="text-muted"> Already have an account? </span>  
+                        <a style="cursor: pointer;" onclick="toggleSignupLogin()"> Sign in </a></p>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCjooIJ292ViCLMDl3iwnfgj0NZw-bECYo",
+          authDomain: "quiz-app-with-login-bd4d3.firebaseapp.com",
+          projectId: "quiz-app-with-login-bd4d3",
+          storageBucket: "quiz-app-with-login-bd4d3.appspot.com",
+          messagingSenderId: "277098954080",
+          appId: "1:277098954080:web:003365dc79cda8fa503205",
+          measurementId: "G-DSQFHRRQD7"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth();
+        console.log("Firebase initialised");
+
+        // Signup with email password
+        signUp.addEventListener('click', (e) => {
+            var email = document.getElementById("s-email").value;
+            // console.log(email);
+            var password = document.getElementById("s-password").value;
+            // console.log(password);
+
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    // console.log("Created account Successfully!");
+                    window.location.replace("index1.html");
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                    // ..
+                });
+        });
+
+        // Login with email password
+        login.addEventListener('click', (e) => {
+            var email = document.getElementById("l-email").value;
+            // console.log(email);
+            var password = document.getElementById("l-password").value;
+            // console.log(password);
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    // ...
+                    console.log("User logged in Successfully!");
+                    window.location.replace("index1.html");
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                });
+        });
+
+        const user = auth.currentUser;
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid;
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
+        });
+
+    </script>
+    <script>
+        function toggleSignupLogin() {
+            a = document.getElementById("signUpDiv");
+            b = document.getElementById("loginDiv");
+            if(a.style.display == "none"){
+                a.style.display = "block";
+                b.style.display = "none";
+            }
+            else{
+                a.style.display = "none";
+                b.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
