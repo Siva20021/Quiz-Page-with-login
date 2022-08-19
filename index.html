@@ -5,19 +5,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome!</title>
+    <!-- google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet"> 
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css"/>
     <style>
         *{
             padding: none;
             border: 0px;
-            background-color: black;
-            color: white;
+                        
+            color: black;
         }
 
     </style>
 </head>
 <body>
-    <!-- Login div -->
+    
+<div class="container" id="container">
+	<div class="form-container sign-up-container" id="signUpDiv">
+		<form >
+			<h1>Create Account</h1>
+            <div class="required">
+                <label for="username">Enter your email</label>
+			    <input type="email" placeholder="Email" id="s-email" />
+            </div>
+            <div class="required">
+                <label  for="password">Enter your password</label>
+			    <input type="password" required="" id="s-password" placeholder="Password" />
+            </div>
+            <div>
+                <button type="submit" id="Signup">Sign Up</button>
+            </div>
+			
+		</form>
+	</div>
+	<div class="form-container sign-in-container" >
+		<form action="#">
+			<h1>Sign in</h1>
+            <div class="required">
+                <label for="username">Email Id</label>
+			    <input type="email" placeholder="Email" id="l-email" />
+            </div>
+            <div class="required">
+                <input type="password" required="" id="l-password" placeholder="Password" />
+            </div>
+			
+			<a style="cursor: pointer;" onclick="toggleSignupLogin()"><button>Log In</button> </a>  
+		</form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="signIn">Sign In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+    <!-- Login div
     <div class="pt-5 loginDiv" id="loginDiv" style="display: none;">  
         <div class="container">  
             <div class="row">  
@@ -42,9 +98,9 @@
                 </div>  
             </div>  
         </div>  
-    </div>  
+    </div> 
 
-    <!-- SignUp div -->
+    <!-- SignUp div 
     <div class="pt-5 signUpDiv" id="signUpDiv">  
         <div class="container">  
             <div class="row">  
@@ -59,10 +115,7 @@
                             <label class="d-flex flex-row align-items-center" for="password"> Set a Password </label>  
                             <input type="password" class="form-control" required="" id="s-password" name="password">  
                         </div>
-                        <!-- <div class="required">  
-                            <label class="d-flex flex-row align-items-center" for="password"> Confirm Password </label>  
-                            <input type="password" class="form-control" required="" id="password" name="password" value="">  
-                        </div>    -->
+                        
                         <div class="pt-1">  
                             <button class="btn btn-primary btn-block" id="signUp" type="submit"> Sign Up </button>  
                         </div>  
@@ -73,7 +126,7 @@
                 </div>  
             </div>  
         </div>  
-    </div>
+    </div> -->
 
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -172,6 +225,17 @@
                 b.style.display = "block";
             }
         }
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+	    container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+	    container.classList.remove("right-panel-active");
+    });
     </script>
 </body>
 </html>
